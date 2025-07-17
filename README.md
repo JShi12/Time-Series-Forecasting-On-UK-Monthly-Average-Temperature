@@ -8,7 +8,7 @@ The dataset used in this project is downloaded from from [Kaggle]  https://www.k
 ## Data Pre-processing and Exploratory Data Analysis
 Pre-processing and exploratory data analysis were first conducted to explore the dataset. Stationarity of the data series was evaluated. Analysis of the Autocorrelation Function (ACF) and Partial Autocorrelation Function (PACF) plots were conducted, showing a yearly seasonality of the data and a promising seasonal model structure (SARIMAX(2, 1, 1)x(2, 1, 1, 12)) was proposed. 
 <p align="center">
-  <img width="460" height="300" src="https://github.com/JShi12/Time-Series-Forecasting-On-UK-Monthly-Average-Temperature/tree/main/Images/Temperature_ACF_PACF.png">
+  <img width="460" height="300" src="https://raw.githubusercontent.com/JShi12/Time-Series-Forecasting-On-UK-Monthly-Average-Temperature/tree/main/Images/Temperature_ACF_PACF.png">
 </p>
 
 <p align="center">
