@@ -8,28 +8,34 @@ The dataset used in this project is downloaded from from [Kaggle]  https://www.k
 ## Data Pre-processing and Exploratory Data Analysis
 Pre-processing and exploratory data analysis were first conducted to explore the dataset. Stationarity of the data series was evaluated. Analysis of the Autocorrelation Function (ACF) and Partial Autocorrelation Function (PACF) plots were conducted, showing a yearly seasonality of the data and a promising seasonal model structure (SARIMAX(2, 1, 1)x(2, 1, 1, 12)) was proposed. 
 <p align="center">
-  <img width="460" height="300" src="https://github.com/mkosaka1/AirPassengers_TimeSeries/blob/master/Images/FirstPredictions.jpg">
+  <img width="460" height="300" src="https://github.com/JShi12/Time-Series-Forecasting-On-UK-Monthly-Average-Temperature/tree/main/Images/Temperature_ACF_PACF.jpg">
 </p>
+
+<p align="center">
+  <img width="460" height="300" src="https://github.com/JShi12/Time-Series-Forecasting-On-UK-Monthly-Average-Temperature/tree/main/Images/temp_difference_acf_pacf.jpg">
+</p>
+
 ## Model Construction
 ### Prepare the dataset. 
-* Split the data into training/validation/test. The validation dataset will be used to evaluate different models. The final selected model is further trained on combined training and validaiton dataset. 
-* Scale the datasets
-* Transform the datasets using sliding windows
-### Build and train RNN models. 
-For a deep RNN architecture, we need to choose the depth (i.e, the number of layers the RNN has — e.g. stacking multiple LSTM or GRU layers on top of each other) and the neurons per layer (i.e., the number of units each RNN layer has — controls the layer’s capacity to learn patterns in sequences). 
-Usually, a depth of 1–3 layers is sufficient for many problems. 
-Typical number of units per layer are 32, 50, 64, 128, depending on data and compute. Too deep or too wide can cause overfitting or slow training — so we tune these by experimenting + validation.
+* Split the data into train/test. ARIMA model family do not require feature scaling and model input data needs to be 1d. 
 
-Four different architectures (SimpleRNN, 1-layer LSTM and 2-layer SLTM with different window sizes) were experimented in this project. The 1-layer LSTM model with a window size of 60 performed best.
-### Retrain the selected model.
- Combine the training dataset and validation dataset as the new full training dataset and go through the dataset preparation for LSTM models again before retraining the model.  
-### Evaluate the model performance on test dataset
-### Make predictions for the future
-Future stock price prediction were made using prior 60 days stock price. Here each predicted value is fed back into the input for the next prediction. If a prediction is slightly off, that error propagates and often amplifies over subsequent steps. This causes the forecast to “drift” away from reality as we predict farther into the future. No mechanism here to adapt or retrain on new data as predictions move forward. 
+### Build and train models. 
+Two models/approaches were tested, including:
+* SARIMAX(2, 1, 1)x(2, 1, 1, 12)
+  The hyperparameters were set from prior analysis.
+* Using pmdarima for Auto ARIMA model selection
 
+
+The best model from auto_arima is `ARIMA(0,1,1)(3,1,0)[12]`, which has higher AIC and BIC compared to the SARIMAX(2, 1, 1)x(2, 1, 1, 12), therefore the SARIMAX model is preferred. `ARIMA(2,1,1)(2,1,1)[12]` was skipped during the training with auto_arima likely due to early convergence failures. It demonstrates SARIMAX is the better choice when we already know a promising seasonal model structure from prior analysis.  
+### Model Validation and Forcast
+Both models demonstrate strong performance, each achieving an R² score above 0.9. However, the SARIMAX model outperforms the best SARIMA model selected by auto_arima, delivering a superior fit with a lower RMSE of 1.12.
+
+<p align="center">
+  <img width="460" height="300" src="https://github.com/JShi12/Time-Series-Forecasting-On-UK-Monthly-Average-Temperature/tree/main/Images/Temperature_Fitting_and_Predictions.jpg">
+</p>
 
 ## Summary results 
 
-* A simple 1-layer LSTM architecture forcasts the *close price*  accurately with its prior 60 days *close price* as input, achieving a RMSE of 6.85 on the test data set. It has a RMSE of 6.85 on the test data set. This may or may not be acceptable depending on specific problems. Using log returns ($ \log \frac{P_t}{P_{t-1}} $) or price difference ($P_t-P_{t-1}$) are alternative methods for the stock price forcast. 
+Univariate Time-Series Analysis and Forcasting on UK Monthly Average Temperature with SARIMAX model and auto_arima is conducted in this project. With analysis of the Autocorrelation Function (ACF) and Partial Autocorrelation Function (PACF) plots, a promising seasonal model structure was proposed and trained with SARIMAX. Another model was trained using the auto_arima from the pmdarima library to the best SARIMA model hyperparameters.
 
-* We can extend this project for real-time streaming data by automating new data ingestion and retraining the model daily for the forcast of the next day's stock price.
+Both models demonstrate strong performance, each achieving an R² score above 0.9. However, the SARIMAX model outperforms the best SARIMA model selected by auto_arima, delivering a superior fit with a lower RMSE of 1.12. When the optimal parameters (p, d, q)(P, D, Q, s) are known from domain knowledge or prior analysis, SARIMAX is the preferred choice. Conversely, for quickly establishing a baseline or prototype model without manual parameter tuning, auto_arima is an effective and convenient option.
