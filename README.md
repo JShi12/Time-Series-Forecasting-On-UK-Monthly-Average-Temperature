@@ -21,9 +21,8 @@ Pre-processing and exploratory data analysis were first conducted to explore the
 
 ### Build and train models. 
 Two models/approaches were tested, including:
-* SARIMAX(2, 1, 1)x(2, 1, 1, 12)
-  The hyperparameters were set from prior analysis.
-* Using pmdarima for Auto ARIMA model selection
+* SARIMAX(2, 1, 1)x(2, 1, 1, 12). The hyperparameters were set from prior analysis.
+* Using pmdarima for uto_arima model selection
 
 
 The best model from auto_arima is `ARIMA(0,1,1)(3,1,0)[12]`, which has higher AIC and BIC compared to the SARIMAX(2, 1, 1)x(2, 1, 1, 12), therefore the SARIMAX model is preferred. `ARIMA(2,1,1)(2,1,1)[12]` was skipped during the training with auto_arima likely due to early convergence failures. It demonstrates SARIMAX is the better choice when we already know a promising seasonal model structure from prior analysis.  
@@ -31,7 +30,7 @@ The best model from auto_arima is `ARIMA(0,1,1)(3,1,0)[12]`, which has higher AI
 Both models demonstrate strong performance, each achieving an R² score above 0.9. However, the SARIMAX model outperforms the best SARIMA model selected by auto_arima, delivering a superior fit with a lower RMSE of 1.12.
 
 <p align="center">
-  <img width="460" height="300" src="https://raw.githubusercontent.com/JShi12/Time-Series-Forecasting-On-UK-Monthly-Average-Temperature/main/Images/Temperature_Fitting_and_Predictions.png">
+  <img width="460" height="300" src="https://raw.githubusercontent.com/JShi12/Time-Series-Forecasting-On-UK-Monthly-Average-Temperature/main/Images/Temperature_Fitting_and_Predictions.jpg">
 </p>
 
 ## Summary results 
