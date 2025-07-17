@@ -8,11 +8,11 @@ The dataset used in this project is downloaded from from [Kaggle]  https://www.k
 ## Data Pre-processing and Exploratory Data Analysis
 Pre-processing and exploratory data analysis were first conducted to explore the dataset. Stationarity of the data series was evaluated. Analysis of the Autocorrelation Function (ACF) and Partial Autocorrelation Function (PACF) plots were conducted, showing a yearly seasonality of the data and a promising seasonal model structure (SARIMAX(2, 1, 1)x(2, 1, 1, 12)) was proposed. 
 <p align="center">
-  <img width="460" height="300" src="https://github.com/JShi12/Time-Series-Forecasting-On-UK-Monthly-Average-Temperature/tree/main/Images/Temperature_ACF_PACF.jpg">
+  <img width="460" height="300" src="https://github.com/JShi12/Time-Series-Forecasting-On-UK-Monthly-Average-Temperature/tree/main/Images/Temperature_ACF_PACF.png">
 </p>
 
 <p align="center">
-  <img width="460" height="300" src="https://github.com/JShi12/Time-Series-Forecasting-On-UK-Monthly-Average-Temperature/tree/main/Images/temp_difference_acf_pacf.jpg">
+  <img width="460" height="300" src="https://github.com/JShi12/Time-Series-Forecasting-On-UK-Monthly-Average-Temperature/tree/main/Images/temp_difference_acf_pacf.png">
 </p>
 
 ## Model Construction
@@ -31,7 +31,7 @@ The best model from auto_arima is `ARIMA(0,1,1)(3,1,0)[12]`, which has higher AI
 Both models demonstrate strong performance, each achieving an R² score above 0.9. However, the SARIMAX model outperforms the best SARIMA model selected by auto_arima, delivering a superior fit with a lower RMSE of 1.12.
 
 <p align="center">
-  <img width="460" height="300" src="https://github.com/JShi12/Time-Series-Forecasting-On-UK-Monthly-Average-Temperature/tree/main/Images/Temperature_Fitting_and_Predictions.jpg">
+  <img width="460" height="300" src="https://github.com/JShi12/Time-Series-Forecasting-On-UK-Monthly-Average-Temperature/tree/main/Images/Temperature_Fitting_and_Predictions.png">
 </p>
 
 ## Summary results 
